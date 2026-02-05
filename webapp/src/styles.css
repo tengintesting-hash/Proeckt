@@ -1,0 +1,123 @@
+:root {
+  font-family: "Inter", system-ui, sans-serif;
+  color: #1f1f1f;
+  background: #f4f6fb;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.nav-links a {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #1f1f1f;
+  font-weight: 600;
+}
+
+.feed {
+  padding: 2rem;
+  flex: 1;
+}
+
+.feed-controls button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid #dfe3f0;
+  background: #fff;
+  cursor: pointer;
+}
+
+.feed-controls .active {
+  background: #2f6fed;
+  color: #fff;
+  border-color: #2f6fed;
+}
+
+.feed-list {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.post-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.media img,
+.media video {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.admin {
+  padding: 2rem;
+}
+
+.admin-block {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.admin-block label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.app-footer {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  background: #fff;
+  border-top: 1px solid #e5e7f0;
+}
+
+.app-footer a {
+  text-decoration: none;
+  color: #2f6fed;
+}
+
+.error {
+  color: #d63939;
+  margin-top: 1rem;
+}
+
+.success {
+  color: #1b8d3c;
+  margin-top: 0.5rem;
+}

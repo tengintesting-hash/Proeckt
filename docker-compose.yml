@@ -1,0 +1,70 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://app:app@db:5432/app
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET: change_me
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_WEBAPP_SECRET: ${TELEGRAM_WEBAPP_SECRET}
+      MEDIA_ROOT: /data/media
+      ML_SERVICE_URL: http://ml-service:9000
+      ADMIN_TELEGRAM_ID: ${ADMIN_TELEGRAM_ID}
+    volumes:
+      - media_data:/data/media
+    depends_on:
+      - db
+      - redis
+      - ml-service
+
+  bot:
+    build: ./bot
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      WEBAPP_URL: ${WEBAPP_URL}
+    depends_on:
+      - backend
+
+  ml-service:
+    build: ./ml_service
+    environment:
+      ML_DATA_DIR: /data/ml
+    volumes:
+      - ml_data:/data/ml
+      - media_data:/data/media
+
+  webapp:
+    build: ./webapp
+
+  nginx:
+    image: nginx:1.27-alpine
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - webapp
+
+volumes:
+  db_data:
+  media_data:
+  ml_data:
